@@ -1,7 +1,8 @@
 <template>
     <div class="relative">
-        <TrashIcon class="w-6 h-6 absolute top-0 right-0 hover:cursor-pointer" @click="kanban.unselectTask()" />
+        <span class="w-6 h-6 absolute top-0 right-0 hover:cursor-pointer" @click="kanban.unselectTask()"> &#x2715; </span>
         <div class="mt-3 sm:mt-2">
+        
             <DialogTitle as="h3" class="mb-6 text-base font-semibold leading-6 text-gray-900">Edit Task
             </DialogTitle>
             <div>

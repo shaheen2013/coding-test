@@ -103,13 +103,11 @@
             <generic-modal v-if="kanban.hasSelectedTask()" @close="unSelectEditItem()">
                 <div v-if="!kanban.editTask">
                     <div class="relative">
-                        <TrashIcon class="w-6 h-6 absolute top-0 right-0 hover:cursor-pointer"
-                            @click="deleteCard(kanban.selectedTask.id)" />
+                        <button class="absolute bg-gray-100 top-0 right-12 hover:cursor-pointer text-black font-bold p-2 rounded" @click="deleteCard(kanban.selectedTask.id)">
+                            Delete
+                        </button>
 
-                        <CheckIcon class="w-6 h-6 absolute top-0 right-8 hover:cursor-pointer"
-                            @click="editCard(kanban.selectedTask.id)" />
-                        
-                        <button class="bg-blue-500 hover:bg-blue-700 absolute top-0 right-12 hover:cursor-pointer text-white font-bold py-2 px-4 rounded" @click="editCard(kanban.selectedTask.id)">
+                        <button class="bg-gray-100 hover:bg-gray-100 absolute top-0 right-0 hover:cursor-pointer text-black font-bold p-2 rounded" @click="editCard(kanban.selectedTask.id)">
                             Edit
                         </button>
 

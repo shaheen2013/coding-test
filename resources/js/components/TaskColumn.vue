@@ -5,6 +5,7 @@
                 <h2 class="text-lg text-zinc-100 font-black mb-3">{{ kanban.phases[props.phase_id].name }}</h2>
 
                 <h4 class="mb-3 h-6 w-6 right-0 text-white border-1 border-red-400 rounded" aria-hidden="true"> {{ kanban.phases[props.phase_id].tasks.length }}</h4>
+                {{ countTask('12') }}
 
                 <CheckIcon @click="completedTask(props.phase_id)" class="mb-3 h-6 w-6 right-0 text-white hover:cursor-pointer" aria-hidden="true" />
 
@@ -53,8 +54,6 @@ const completedTask = async (id) => {
         }
     }
 }
-
-
 
 const refreshTasks = async () => {
     try {
