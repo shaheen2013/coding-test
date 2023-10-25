@@ -2,7 +2,11 @@
 
 namespace App\Providers;
 
+use App\Models\Task;
 use Illuminate\Support\ServiceProvider;
+use Auth;
+use Illuminate\Support\Facades;
+use Illuminate\View\View;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -19,6 +23,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+       
     }
 }
