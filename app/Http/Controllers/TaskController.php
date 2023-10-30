@@ -71,11 +71,10 @@ class TaskController extends Controller
      */
     public function update(UpdateTaskRequest $request, Task $task)
     {
-
         $task->name = $request->name;
         $task->phase_id = $request->phase_id;
         $task->user_id = $request->user_id;
-        if($task->phase_id == 4){
+        if($task->phase->is_completion){
             $task->completed_at = Carbon::now();
         }
         $task->save();
@@ -98,11 +97,27 @@ class TaskController extends Controller
      */
     function isCompletion(Phase $phase){
 
-        $phase->update([
-            'is_completion'=>true,
+        $tasks = Task::where('phase_id',$phase->id)->where('completed_at',null)->update([
+            'completed_at' => Carbon::now(),
         ]);
+        if($phase->is_completion){
+            $phase->is_completion = 0;
+        }else{
+            $phase->is_completion = 1;
+        }
+        $phase->save();
         return response()->json([
             'message' => 'Status Changed Successfully!'
         ]);
+    }
+
+    /**
+     * Count All task
+     * @param mixed $id
+     * 
+     * @return [type]
+     */
+    function tasksCount($id) {
+        return Task::where('phase_id',$id)->count();
     }
 }

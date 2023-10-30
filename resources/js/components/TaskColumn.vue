@@ -2,16 +2,19 @@
     <div class="w-[300px] bg-sky-950 rounded-lg shadow-lg">
         <div class="p-4">
             <div class="flex items-center justify-between">
-                <h2 class="text-lg text-zinc-100 font-black mb-3">{{ kanban.phases[props.phase_id].name }}</h2>
+                <h2 class="text-lg text-zinc-100 font-black mb-3">{{ kanban.phases[props.phase_id].name }}
+                {{ kanban.phases[props.phase_id].is_completion }}
+                </h2>
 
-                <h4 class="mb-3 h-6 w-6 right-0 text-white border-1 border-red-400 rounded" aria-hidden="true"> {{ kanban.phases[props.phase_id].tasks.length }}</h4>
-                <CheckIcon class="mb-3 h-6 w-6 right-0 text-white hover:cursor-pointer" aria-hidden="true" />
+                <!-- <h4 class="mb-3 h-6 w-6 right-0 text-white border-1 border-red-400 rounded" aria-hidden="true"> {{ kanban.phases[props.phase_id].tasks.length }}</h4> -->
+                <h4 class="mb-3 h-6 w-6 right-0 text-white border-1 border-red-400 rounded" aria-hidden="true"> {{ count }}</h4>
+                <CheckIcon @click="completedTask(props.phase_id)" class="mb-3 h-6 w-6 right-0 text-white hover:cursor-pointer" aria-hidden="true" />
 
                 <PlusIcon @click="createTask()" class="mb-3 h-6 w-6 text-white hover:cursor-pointer" aria-hidden="true" />
             </div>
+            
             <task-card v-if="kanban.phases[props.phase_id].tasks.length > 0"
-                v-for="task in kanban.phases[props.phase_id].tasks" :task="task" />
-
+                v-for="task in kanban.phases[props.phase_id].tasks" :task="task" :is_completion="kanban.phases[props.phase_id].is_completion" />
             <!-- A card to create a new task -->
             <div class="w-full flex items-center justify-between bg-white text-gray-900 hover:cursor-pointer shadow-md rounded-lg p-3 relative"
                 @click="createTask()">
@@ -26,8 +29,10 @@
 // get the props
 import { useKanbanStore } from '../stores/kanban'
 import { PlusIcon , CheckIcon } from '@heroicons/vue/20/solid'
+import { ref, onMounted } from 'vue'
 
 const kanban = useKanbanStore()
+const count = ref(0);
 
 const props = defineProps({
     phase_id: {
@@ -52,6 +57,16 @@ const completedTask = async (id) => {
     }
 }
 
+const phaseCount = async () => {
+    try {
+        let id = props.phase_id;
+        const response = await axios.get(`/api/tasks/count/${id}`);
+        count.value = response.data;
+    } catch (error) {
+        console.error('There was an error fetching the task count!', error);
+    }
+}
+
 const refreshTasks = async () => {
     try {
         const response = await axios.get('/api/tasks');
@@ -64,5 +79,10 @@ const refreshTasks = async () => {
         console.error('There was an error fetching the tasks!', error);
     }
 }
+
+onMounted( async () => {
+    await phaseCount()
+})
+
 
 </script>

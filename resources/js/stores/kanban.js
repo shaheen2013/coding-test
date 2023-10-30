@@ -20,6 +20,7 @@ export const useKanbanStore = defineStore('kanban', {
           phase_id: null,
           user_id: null,
         },
+        phases_count:0,
         self: null,
     }
   },
