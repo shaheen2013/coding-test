@@ -2,7 +2,7 @@
     <div class="relative">
         <span class="w-6 h-6 absolute top-0 right-0 hover:cursor-pointer" @click="kanban.unselectTask()"> &#x2715; </span>
         <div class="mt-3 sm:mt-2">
-        
+
             <DialogTitle as="h3" class="mb-6 text-base font-semibold leading-6 text-gray-900">Edit Task
             </DialogTitle>
             <div>
@@ -18,7 +18,7 @@
             </div>
 
             <div class="mt-8">
-                <label for="taskPhase" class="block text-sm font-medium leading-6 text-gray-900">Phase</label>
+                <label for="taskPhase" class="block text-sm font-medium leading-6 text-gray-900">Assignee</label>
                 <select v-model="kanban.editTaskProps.user_id" id="taskPhase"
                     class="mt-2 block w-full rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-blue-600 sm:text-sm sm:leading-6">
                     <option v-for="persion in kanban.users" :key="persion.id" :value="persion.id">{{ persion.name
