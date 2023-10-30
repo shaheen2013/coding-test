@@ -27,4 +27,9 @@ class Task extends Model
     {
         return $this->belongsTo(Phase::class);
     }
+
+    // public function getCompletedAtAttribute($value)
+    // {
+    //     return date('d-m-Y', strtotime($value));;
+    // }
 }

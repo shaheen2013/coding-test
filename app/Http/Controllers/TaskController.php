@@ -71,10 +71,11 @@ class TaskController extends Controller
      */
     public function update(UpdateTaskRequest $request, Task $task)
     {
+        $phase = Phase::findOrFail($request->phase_id);
         $task->name = $request->name;
         $task->phase_id = $request->phase_id;
-        $task->user_id = $request->user_id;
-        if($task->phase->is_completion){
+        $task->user_id = $request->user_id;   
+        if($task->completed_at == null && $phase->is_completion == 1){
             $task->completed_at = Carbon::now();
         }
         $task->save();

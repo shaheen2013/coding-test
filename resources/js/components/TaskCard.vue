@@ -1,10 +1,10 @@
 <template>
     <div class="w-full bg-white text-gray-900 shadow-md rounded-lg p-3 pb-8 mb-4 relative"
-        :class="task.completed_at && is_completion ? ' text-red-500' : 'text-gray-900'"
+        :class="task.completed_at || is_completion == 1 ? 'border-2 border-green-500' : 'text-gray-900'"
         @mouseenter="kanban.hoveredName = task.name" @mouseleave="kanban.unhoverTask()" @click="kanban.selectTask(task)">
         {{ task.name }}<br>
-        <div class="text-xs text-gray-500 absolute bottom-2 ">{{ task.user.name }} {{ is_completion }}</div>
-        <div class="text-xs text-gray-500 absolute bottom-2 right-4 ">{{ task.completed_at }}</div>
+        <div class="text-xs text-gray-500 absolute bottom-5">{{ task.user.name }}</div>
+        <div class="text-xs text-gray-500 absolute bottom-1">{{ task.completed_at }}</div>
         <img class="w-10 h-10 shadow-lg rounded-full absolute bottom-0 right-0 -mr-2 -mb-2 border-2 border-white"
             :src="getAvatar()" :alt="task.user.name" />
     </div>
